@@ -13,6 +13,7 @@ use App\V1\API\Resources\UserResource;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthModel extends AbstractModel
 {
@@ -26,10 +27,11 @@ class AuthModel extends AbstractModel
         parent::__construct($model);
     }
 
-
     public function login($input)
     {
         try {
+
+            Log::info('df');die;
             $user = User::where('email', $input['email'])
                 ->orWhere('username', $input['email'])->first();
             if (!$user || !Hash::check($input['password'], $user->password)) {
@@ -39,6 +41,39 @@ class AuthModel extends AbstractModel
                     ]], 422);
             }
 
+            $code = CRM::generateUniqueCode('users', 'verify_code', 100000, 999999);
+
+            $user->verify_code = $code;
+            $user->code_expired_at = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
+            $user->save();
+
+            $details['email_address'] = 'no-reply@hegka.com';
+            $details['mailer'] = 'smtp-no-reply';
+            $details['to'] = $user->email;
+            $details['view'] = 'emails.auth.verify';
+            $details['subject'] = "Xác nhận tài khoản";
+            $details['item'] = $user->toArray();
+            $details['code'] = $code;
+
+            dispatch(new SendMail($details));
+
+
+        } catch (\Exception $exception) {
+            throw new \Exception($exception->getMessage());
+        }
+        return response()->json(['message' => 'Đã gửi mã xác nhận qua email của bạn']);
+    }
+
+    public function verify($code)
+    {
+        try {
+            $user = User::where('verify_code', $code)->first();
+
+            if (empty($user)) {
+                return response()->json(['message' => 'Mã xác nhận không đúng']);
+            } elseif (strtotime($user->code_expired_at) < time()) {
+                return response()->json(['message' => 'Mã xác nhận đã hết hạn']);
+            }
 
             $authToken = $user->createToken('apiToken');
             $token = $authToken->plainTextToken;

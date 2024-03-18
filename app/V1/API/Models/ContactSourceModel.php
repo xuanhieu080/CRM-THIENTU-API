@@ -1,0 +1,74 @@
+<?php
+
+namespace App\V1\API\Models;
+
+
+use App\Models\ContactSource;
+use App\Supports\CRM;
+use App\V1\API\Resources\ContactSourceResource;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+
+class ContactSourceModel extends AbstractModel
+{
+
+    /**
+     * Comment constructor.
+     */
+    public function __construct()
+    {
+        $model = new ContactSource();
+        parent::__construct($model);
+    }
+
+    public function index($input)
+    {
+        $limit = Arr::get($input, 'limit', 999);
+
+        $input['sort'] = ['id' => 'desc'];
+        $result = $this->search($input, [], $limit);
+
+        return ContactSourceResource::collection($result);
+    }
+
+    public function updateItem(ContactSource $item, array $data)
+    {
+        try {
+            DB::beginTransaction();
+            $data = CRM::clean($data);
+            $item->name = Arr::get($data, 'name', $item->name);
+            $item->save();
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            throw new \Exception($exception->getMessage());
+        }
+
+        return new ContactSourceResource($item);
+    }
+
+    public function store(array $data)
+    {
+        try {
+            DB::beginTransaction();
+            $data = CRM::clean($data);
+            $record = $this->create($data);
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            throw new \Exception($exception->getMessage());
+        }
+
+        return new ContactSourceResource($record);
+    }
+
+    public function show(ContactSource $item)
+    {
+        return new ContactSourceResource($item);
+    }
+
+    public function deleteItem(ContactSource $item)
+    {
+        return $item->delete();
+    }
+}

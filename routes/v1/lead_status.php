@@ -1,5 +1,6 @@
 <?php
 
+use App\V1\API\Controllers\LeadStatusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,12 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['prefix' => 'v1'], function () {
-    require __DIR__ . '/auth.php';
-    require __DIR__ . '/customer.php';
-    require __DIR__ . '/service.php';
-    require __DIR__ . '/contact_funnel.php';
-    require __DIR__ . '/contact_source.php';
-    require __DIR__ . '/deal_stage.php';
-    require __DIR__ . '/lead_status.php';
-});
+
+Route::resource('lead-status', LeadStatusController::class);
+
+

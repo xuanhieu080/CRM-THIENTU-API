@@ -34,6 +34,11 @@ class AuthController extends Controller
         return $this->model->login($data);
     }
 
+    public function verify($code, Request $request)
+    {
+        return $this->model->verify($code);
+    }
+
     public function logout(Request $request)
     {
         return $this->model->logout();

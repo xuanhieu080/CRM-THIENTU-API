@@ -1,2 +1,45 @@
-User-agent: *
-Disallow:
+server {
+    listen 80;
+    server_name api-crm.thientu.vn www.api-crm.thientu.vn;
+    root /home/CRM-THIENTU-API/public;
+
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+
+    charset utf-8;
+
+    location / {
+	root /home/CRM-THIENTU-API/public;
+        index index.php  index.html index.htm;
+
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    error_page 404 /index.php;
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
+server {
+        listen 8888;
+        location / {
+                proxy_set_header   X-Real-IP             $remote_addr;
+                proxy_set_header   X-Forwarded-For       $proxy_add_x_forwarded_for;
+                proxy_set_header   X-Forwarded-Proto https;
+                proxy_set_header   Host $host;
+                proxy_pass http://127.0.0.1:8000;
+                proxy_read_timeout 3600;
+                proxy_connect_timeout 300s;
+        }
+}
