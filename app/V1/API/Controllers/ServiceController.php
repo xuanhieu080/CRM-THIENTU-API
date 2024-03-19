@@ -4,6 +4,7 @@ namespace App\V1\API\Controllers;
 
 
 use App\Models\Service;
+use App\Supports\CRM_ERROR;
 use App\V1\API\Models\ServiceModel;
 use App\V1\API\Requests\Services\CreateRequest;
 use App\V1\API\Requests\Services\UpdateRequest;
@@ -115,11 +116,17 @@ class ServiceController extends Controller
      */
     public function destroy(Request $request, Service $item)
     {
+        try {
+            if ($this->model->deleteItem($item)) {
+                return $this->responseDeleteSuccess(['model' => $item]);
+            }
+
+        } catch (\Exception $exception) {
+            CRM_ERROR::handle($exception);
+            return response()->json(['message' => $exception->getMessage()]);
+        }
 //        $this->authorize('delete', Service::class);
 
-        if ($this->model->deleteItem($item)) {
-            return $this->responseDeleteSuccess(['model' => $item]);
-        }
 
         return $this->responseDeleteFail();
 
