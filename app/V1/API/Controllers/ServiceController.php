@@ -64,7 +64,6 @@ class ServiceController extends Controller
      */
     public function show(Service $item)
     {
-        dd('fg');
 //        $this->authorize('view', Service::class);
 
         $model = $this->model->show($item);
@@ -81,7 +80,6 @@ class ServiceController extends Controller
      */
     public function edit(Service $item)
     {
-        dd('edit');
 //        $this->authorize('edit', Service::class);
 
         return $this->show($item);
@@ -97,7 +95,7 @@ class ServiceController extends Controller
      * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Service $item)
-    {  dd('update');
+    {
 //        $this->authorize('edit', Service::class);
 
         $data = $request->validated();
@@ -118,7 +116,7 @@ class ServiceController extends Controller
      */
     public function destroy(Request $request, Service $item)
     {
-        dd($item,$this->model->deleteItem($item));
+        dd($item);
         try {
             if ($this->model->deleteItem($item)) {
                 return $this->responseDeleteSuccess(['model' => $item]);
