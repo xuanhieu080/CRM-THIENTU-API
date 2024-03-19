@@ -118,7 +118,7 @@ class ServiceController extends Controller
      */
     public function destroy(Request $request, Service $item)
     {
-        dd('sd');
+        dd($item,$this->model->deleteItem($item));
         try {
             if ($this->model->deleteItem($item)) {
                 return $this->responseDeleteSuccess(['model' => $item]);
