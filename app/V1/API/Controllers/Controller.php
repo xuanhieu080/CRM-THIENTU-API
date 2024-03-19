@@ -53,7 +53,7 @@ class Controller extends BaseController
      * @param $code
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function responseDeleteFail(array $data = [], int $code = 422)
+    protected function responseDeleteFail(array $data = [], int $code = 400)
     {
         return $this->responseFail('Xoá thông tin thất bại', $data, $code);
     }
@@ -65,7 +65,7 @@ class Controller extends BaseController
      * @param $code
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function responseUpdateSuccess($data = [], $code = 200)
+    protected function responseUpdateSuccess($data = [], $code = 400)
     {
         return $this->responseSuccess('Cập nhật thông tin thành công', $data, $code);
     }
@@ -78,7 +78,7 @@ class Controller extends BaseController
      * @param $code
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function responseUpdateFail(array $data = [], int $code = 422)
+    protected function responseUpdateFail(array $data = [], int $code = 400)
     {
         return $this->responseFail('Cập nhật thông tin thất bại', $data, $code);
     }
@@ -103,7 +103,7 @@ class Controller extends BaseController
      * @param $code
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function responseStoreFail(array $data = [], int $code = 422)
+    protected function responseStoreFail(array $data = [], int $code = 400)
     {
         return $this->responseFail('Thêm thông tin thất bại', $data, $code);
     }
