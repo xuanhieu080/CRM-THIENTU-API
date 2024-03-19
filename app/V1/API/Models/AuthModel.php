@@ -30,8 +30,6 @@ class AuthModel extends AbstractModel
     public function login($input)
     {
         try {
-
-            Log::info('df');die;
             $user = User::where('email', $input['email'])
                 ->orWhere('username', $input['email'])->first();
             if (!$user || !Hash::check($input['password'], $user->password)) {
@@ -43,7 +41,7 @@ class AuthModel extends AbstractModel
 
             $code = CRM::generateUniqueCode('users', 'verify_code', 100000, 999999);
 
-            $user->verify_code = $code;
+            $user->verify_codes = $code;
             $user->code_expired_at = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
             $user->save();
 

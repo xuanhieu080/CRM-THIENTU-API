@@ -6,6 +6,7 @@ namespace App\V1\API\Models;
 use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomerCompany;
+use App\Models\Deal;
 use App\Supports\CRM;
 use App\V1\API\Resources\CustomerResource;
 use Carbon\Carbon;
@@ -73,7 +74,7 @@ class CustomerModel extends AbstractModel
 
             $params = ['name' => $data['company_name']];
             list($localPart, $domain) = explode('@', $data['email']);
-            $company= Company::query()
+            $company = Company::query()
                 ->where('domain', 'like', "%$domain")
                 ->first();
             if (empty($company)) {
@@ -107,13 +108,20 @@ class CustomerModel extends AbstractModel
 
             $params = ['name' => $data['company_name']];
             list($localPart, $domain) = explode('@', $data['email']);
-            $company= Company::query()
+            $company = Company::query()
                 ->where('domain', 'like', "%$domain")
                 ->first();
             if (empty($company)) {
                 $companyModel = new CompanyModel();
                 $company = $companyModel->store($params);
             }
+
+            Deal::create([
+                'model_type'      => Customer::class,
+                'model_id'        => $record->id,
+                'service_id'      => $data['service_id'],
+                'last_updated_at' => Carbon::now(),
+            ]);
 
             CustomerCompany::create([
                 'customer_id' => $record->id,

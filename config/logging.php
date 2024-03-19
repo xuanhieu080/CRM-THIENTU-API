@@ -54,7 +54,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single', 'telegram'],
             'ignore_exceptions' => false,
         ],
 
@@ -129,7 +129,7 @@ return [
 
         'telegram' => [
             'driver' => 'custom',
-            'via'    => Logger\TelegramLogger::class,
+            'via'    => \XuanHieu\TelegramLogger\TelegramLogger::class,
             'level'  => 'debug',
         ]
     ],

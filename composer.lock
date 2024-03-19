@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59b5288f5af923997da4c35bf7bd55eb",
+    "content-hash": "3879f562d2637dec558c2c48b2ab9768",
     "packages": [
         {
             "name": "brick/math",
@@ -633,49 +633,6 @@
                 }
             ],
             "time": "2023-11-12T22:16:48+00:00"
-        },
-        {
-            "name": "grkamil/laravel-telegram-logging",
-            "version": "v1.11.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/grkamil/laravel-telegram-logging.git",
-                "reference": "010d95c1c56db719ca590d59c06d0b844a11fe72"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/grkamil/laravel-telegram-logging/zipball/010d95c1c56db719ca590d59c06d0b844a11fe72",
-                "reference": "010d95c1c56db719ca590d59c06d0b844a11fe72",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0|^10.0|^11.0",
-                "monolog/monolog": "^1.23|^2.0|^3.2",
-                "php": "^7.1.3|^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Logger\\TelegramLoggerServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Logger\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Send logs to Telegram chat via Telegram bot",
-            "support": {
-                "issues": "https://github.com/grkamil/laravel-telegram-logging/issues",
-                "source": "https://github.com/grkamil/laravel-telegram-logging/tree/v1.11.0"
-            },
-            "time": "2024-02-27T17:48:45+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -6304,6 +6261,56 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "xuanhieu080/laravel-telegram-logging",
+            "version": "v1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xuanhieu080/laravel-telegram-logging.git",
+                "reference": "d1e7343978f225dcb0204f6a04d59ff5a55c9675"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xuanhieu080/laravel-telegram-logging/zipball/d1e7343978f225dcb0204f6a04d59ff5a55c9675",
+                "reference": "d1e7343978f225dcb0204f6a04d59ff5a55c9675",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "7.0 || ^8.0 || ^9.0 || ^10.0",
+                "monolog/monolog": "2.* || 3.*",
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "XuanHieu\\TelegramLogger\\TelegramLoggerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "XuanHieu\\TelegramLogger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hieu PX",
+                    "email": "xuanhieu.ht96@gmail.com",
+                    "homepage": "https://xuanhieu080.com"
+                }
+            ],
+            "description": "Send Laravel logs to a Telegram chat via Telegram Bot.",
+            "homepage": "https://github.com/xuanhieu080/laravel-telegram-logging",
+            "support": {
+                "source": "https://github.com/xuanhieu080/laravel-telegram-logging/tree/v1.6"
+            },
+            "time": "2024-03-18T11:12:01+00:00"
         }
     ],
     "packages-dev": [

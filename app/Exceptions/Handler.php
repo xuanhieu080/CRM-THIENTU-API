@@ -7,6 +7,7 @@ use App\Supports\CRM;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -50,20 +51,22 @@ class Handler extends ExceptionHandler
 
             $request = Request::capture();
             $param = $request->all();
+            $requestHost = parse_url($request->headers->get('origin'), PHP_URL_HOST);
             $data = [
                 'action'  => 'ERROR',
                 //            'browser' => "Parent: $parent - Platform: $platform - Browser: $browser",
                 'link'    => url()->current(),
-                'server'  => CRM::urlBase(),
-                'time'    => date("Y-m-d H:i:s", time()),
+                'server'  => env('app_url'),
+                'host'    => $requestHost,
+                'time'    => Carbon::now()->toString(),
                 'user_id' => $user_id,
                 'param'   => json_encode($param),
                 'file'    => $ex->getFile(),
                 'line'    => $ex->getLine(),
                 'error'   => $ex->getMessage(),
             ];
-
-            Logging::dispatch($data)->afterResponse();
+            \Illuminate\Support\Facades\Log::info($data);
+//            Logging::dispatch($data)->afterResponse();
         });
     }
 }

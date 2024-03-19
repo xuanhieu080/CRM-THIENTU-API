@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Validator::replacer('phone', function ($message, $attribute, $rule, $parameters) {
-            return str_replace(':attribute',$attribute, ':attribute không đúng định dạng số điện thoại');
+            return str_replace(':attribute',$attribute, ':attribute không đúng định dạng');
         });
     }
 }

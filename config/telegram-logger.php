@@ -1,25 +1,38 @@
 <?php
 
 return [
-    // Telegram logger bot token
-    'token' => env('TELEGRAM_LOGGER_BOT_TOKEN'),
+    /*
+    |--------------------------------------------------------------------------
+    | TELEGRAM BOT TOKEN
+    |--------------------------------------------------------------------------
+    |
+    | Defines the token of your Telegram Bot that will send the messages.
+    |
+     */
 
-    // Telegram chat id
-    'chat_id' => env('TELEGRAM_LOGGER_CHAT_ID'),
+    'bot_token' => env('TELEGRAM_BOT_TOKEN'),
 
-    // Blade Template to use formatting logs
-    'template' => env('TELEGRAM_LOGGER_TEMPLATE', 'laravel-telegram-logging::standard'),
+    /*
+    |--------------------------------------------------------------------------
+    | TELEGRAM CHAT ID
+    |--------------------------------------------------------------------------
+    |
+    | Defines the id of your Telegram group that will receive the messages.
+    |
+     */
 
-    // Proxy server
-    'proxy' => env('TELEGRAM_LOGGER_PROXY', ''),
+    'chat_id' => env('TELEGRAM_CHAT_ID'),
+    
+    /*
+    |--------------------------------------------------------------------------
+    | TELEGRAM BASE URL
+    |--------------------------------------------------------------------------
+    |
+    | Defines the base url of telegram. For countries block telegram servers, 
+    | this create a bridge for sending message to telegram. for more info see:
+    | https://github.com/AmirrezaNasiri/telegram-web-bridge
+    |
+     */
 
-    // Telegram API host without trailling slash
-    'api_host' => env('TELEGRAM_LOGGER_API_HOST', 'https://api.telegram.org'),
-
-    // Telegram sendMessage options: https://core.telegram.org/bots/api#sendmessage
-    'options' => [
-        // 'parse_mode' => 'html',
-        // 'disable_web_page_preview' => true,
-        // 'disable_notification' => false
-    ]
+    'base_url' => env('TELEGRAM_BASE_URL', 'https://api.telegram.org/'),
 ];

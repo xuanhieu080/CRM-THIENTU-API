@@ -31,6 +31,7 @@ class Logging implements ShouldQueue
      */
     public function handle()
     {
+
         \Illuminate\Support\Facades\Log::info($this->data);
     }
 }

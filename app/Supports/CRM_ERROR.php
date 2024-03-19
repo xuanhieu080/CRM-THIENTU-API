@@ -51,7 +51,7 @@ class CRM_ERROR
 //        $data = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 //        $html_entity_data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
 //
-        \Illuminate\Support\Facades\Log::info($data);
+//        \Illuminate\Support\Facades\Log::info($data);
 
         return ['message' => $ex->getMessage(), 'code' => $errorCode];
 
