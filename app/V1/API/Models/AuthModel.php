@@ -80,7 +80,7 @@ class AuthModel extends AbstractModel
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
         }
-        return response()->json(['token' => $token, 'token_type' => 'Bearer']);
+        return response()->json(['token' => $token, 'token_type' => 'Bearer', 'data' => $user]);
     }
 
     public function logout()
