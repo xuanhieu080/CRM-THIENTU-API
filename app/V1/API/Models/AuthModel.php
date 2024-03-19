@@ -68,9 +68,9 @@ class AuthModel extends AbstractModel
             $user = User::where('verify_code', $code)->first();
 
             if (empty($user)) {
-                return response()->json(['message' => 'Mã xác nhận không đúng']);
+                return response()->json(['message' => 'Mã xác nhận không đúng'], 404);
             } elseif (strtotime($user->code_expired_at) < time()) {
-                return response()->json(['message' => 'Mã xác nhận đã hết hạn']);
+                return response()->json(['message' => 'Mã xác nhận đã hết hạn'], 401);
             }
 
             $authToken = $user->createToken('apiToken');
