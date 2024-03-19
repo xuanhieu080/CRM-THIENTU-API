@@ -70,6 +70,8 @@ class ServiceModel extends AbstractModel
 
     public function deleteItem(Service $item)
     {
-        return $item->delete();
+        $i = Service::query()
+            ->find($item->id);
+        return $i->delete();
     }
 }
