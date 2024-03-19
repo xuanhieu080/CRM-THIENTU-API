@@ -41,7 +41,7 @@ class AuthModel extends AbstractModel
 
             $code = CRM::generateUniqueCode('users', 'verify_code', 100000, 999999);
 
-            $user->verify_codes = $code;
+            $user->verify_code = $code;
             $user->code_expired_at = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
             $user->save();
 

@@ -65,8 +65,7 @@ class Handler extends ExceptionHandler
                 'line'    => $ex->getLine(),
                 'error'   => $ex->getMessage(),
             ];
-            \Illuminate\Support\Facades\Log::info($data);
-//            Logging::dispatch($data)->afterResponse();
+            Logging::dispatch($data)->afterResponse();
         });
     }
 }
