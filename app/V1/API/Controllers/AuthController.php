@@ -44,6 +44,11 @@ class AuthController extends Controller
         return $this->model->logout();
     }
 
+    public function profile(Request $request)
+    {
+        return $this->response(200, 'Đăng nhập thành công', ['data'=>$request->user()]);
+    }
+
     public function forgotPass(ForgotPasswordRequest $request)
     {
         $data = $request->validated();

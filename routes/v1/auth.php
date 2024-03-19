@@ -11,3 +11,4 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::post('/logout', [\App\V1\API\Controllers\AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::get('/profile', [\App\V1\API\Controllers\AuthController::class, 'profile'])->middleware('auth:sanctum');
