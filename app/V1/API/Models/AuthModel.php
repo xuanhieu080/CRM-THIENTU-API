@@ -83,7 +83,7 @@ class AuthModel extends AbstractModel
         return response()->json(['token' => $token, 'token_type' => 'Bearer', 'data' => $user]);
     }
 
-    public function logout()
+    public function loegout()
     {
         auth()->user()->currentAccessToken()->delete();
 
