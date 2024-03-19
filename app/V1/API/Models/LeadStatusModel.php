@@ -52,6 +52,7 @@ class LeadStatusModel extends AbstractModel
         try {
             DB::beginTransaction();
             $data = CRM::clean($data);
+            $data['user_id'] = auth()->id();
             $record = $this->create($data);
             DB::commit();
         } catch (\Exception $exception) {
