@@ -65,7 +65,7 @@ class Controller extends BaseController
      * @param $code
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function responseUpdateSuccess($data = [], $code = 400)
+    protected function responseUpdateSuccess($data = [], $code = 200)
     {
         return $this->responseSuccess('Cập nhật thông tin thành công', $data, $code);
     }
