@@ -57,49 +57,49 @@ class ContactSourceController extends Controller
     /**
      *  Show the form for editing the specified resource.
      *
-     * @param  ContactSource  $item
+     * @param  ContactSource  $contactSource
      *
      * @throws AuthorizationException
      */
-    public function show(ContactSource $item)
+    public function show(ContactSource $contactSource)
     {
 //        $this->authorize('view', ContactSource::class);
 
-        $model = $this->model->show($item);
+        $model = $this->model->show($contactSource);
         return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  ContactSource  $item
+     * @param  ContactSource  $contactSource
      *
      * @return JsonResponse|\Illuminate\Http\Response
      * @throws AuthorizationException
      */
-    public function edit(ContactSource $item)
+    public function edit(ContactSource $contactSource)
     {
 //        $this->authorize('edit', ContactSource::class);
 
-        return $this->show($item);
+        return $this->show($contactSource);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  UpdateRequest  $request
-     * @param  ContactSource  $item
+     * @param  ContactSource  $contactSource
      *
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function update(UpdateRequest $request, ContactSource $item)
+    public function update(UpdateRequest $request, ContactSource $contactSource)
     {
 //        $this->authorize('edit', ContactSource::class);
 
         $data = $request->validated();
-        if ($item = $this->model->updateItem($item, $data)) {
-            return $this->responseUpdateSuccess(['model' => $item]);
+        if ($contactSource = $this->model->updateItem($contactSource, $data)) {
+            return $this->responseUpdateSuccess(['model' => $contactSource]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -113,12 +113,12 @@ class ContactSourceController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function destroy(Request $request, ContactSource $item)
+    public function destroy(Request $request, ContactSource $contactSource)
     {
 //        $this->authorize('delete', ContactSource::class);
 
-        if ($this->model->deleteItem($item)) {
-            return $this->responseDeleteSuccess(['model' => $item]);
+        if ($this->model->deleteItem($contactSource)) {
+            return $this->responseDeleteSuccess(['model' => $contactSource]);
         }
 
         return $this->responseDeleteFail();

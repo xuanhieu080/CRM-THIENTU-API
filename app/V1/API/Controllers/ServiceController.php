@@ -58,49 +58,49 @@ class ServiceController extends Controller
     /**
      *  Show the form for editing the specified resource.
      *
-     * @param  Service  $item
+     * @param  Service  $service
      *
      * @throws AuthorizationException
      */
-    public function show(Service $item)
+    public function show(Service $service)
     {
 //        $this->authorize('view', Service::class);
 
-        $model = $this->model->show($item);
+        $model = $this->model->show($service);
         return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Service  $item
+     * @param  Service  $service
      *
      * @return JsonResponse|\Illuminate\Http\Response
      * @throws AuthorizationException
      */
-    public function edit(Service $item)
+    public function edit(Service $service)
     {
 //        $this->authorize('edit', Service::class);
 
-        return $this->show($item);
+        return $this->show($service);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  UpdateRequest  $request
-     * @param  Service  $item
+     * @param  Service  $service
      *
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function update(UpdateRequest $request, Service $item)
+    public function update(UpdateRequest $request, Service $service)
     {
 //        $this->authorize('edit', Service::class);
 
         $data = $request->validated();
-        if ($item = $this->model->updateItem($item, $data)) {
-            return $this->responseUpdateSuccess(['model' => $item]);
+        if ($service = $this->model->updateItem($service, $data)) {
+            return $this->responseUpdateSuccess(['model' => $service]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -114,19 +114,11 @@ class ServiceController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function destroy(Service $item)
+    public function destroy(Service $service)
     {
-        dd($item);
-        try {
-            if ($this->model->deleteItem($item)) {
-                return $this->responseDeleteSuccess(['model' => $item]);
-            }
-
-        } catch (\Exception $exception) {
-            CRM_ERROR::handle($exception);
-            return response()->json(['message' => $exception->getMessage()]);
+        if ($this->model->deleteItem($service)) {
+            return $this->responseDeleteSuccess(['model' => $service]);
         }
-//        $this->authorize('delete', Service::class);
 
 
         return $this->responseDeleteFail();

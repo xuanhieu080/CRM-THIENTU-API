@@ -57,49 +57,49 @@ class ContactFunnelController extends Controller
     /**
      *  Show the form for editing the specified resource.
      *
-     * @param  ContactFunnel  $item
+     * @param  ContactFunnel  $contactFunnel
      *
      * @throws AuthorizationException
      */
-    public function show(ContactFunnel $item)
+    public function show(ContactFunnel $contactFunnel)
     {
 //        $this->authorize('view', ContactFunnel::class);
 
-        $model = $this->model->show($item);
+        $model = $this->model->show($contactFunnel);
         return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  ContactFunnel  $item
+     * @param  ContactFunnel  $contactFunnel
      *
      * @return JsonResponse|\Illuminate\Http\Response
      * @throws AuthorizationException
      */
-    public function edit(ContactFunnel $item)
+    public function edit(ContactFunnel $contactFunnel)
     {
 //        $this->authorize('edit', ContactFunnel::class);
 
-        return $this->show($item);
+        return $this->show($contactFunnel);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  UpdateRequest  $request
-     * @param  ContactFunnel  $item
+     * @param  ContactFunnel  $contactFunnel
      *
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function update(UpdateRequest $request, ContactFunnel $item)
+    public function update(UpdateRequest $request, ContactFunnel $contactFunnel)
     {
 //        $this->authorize('edit', ContactFunnel::class);
 
         $data = $request->validated();
-        if ($item = $this->model->updateItem($item, $data)) {
-            return $this->responseUpdateSuccess(['model' => $item]);
+        if ($contactFunnel = $this->model->updateItem($contactFunnel, $data)) {
+            return $this->responseUpdateSuccess(['model' => $contactFunnel]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -113,12 +113,12 @@ class ContactFunnelController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function destroy(Request $request, ContactFunnel $item)
+    public function destroy(Request $request, ContactFunnel $contactFunnel)
     {
 //        $this->authorize('delete', ContactFunnel::class);
 
-        if ($this->model->deleteItem($item)) {
-            return $this->responseDeleteSuccess(['model' => $item]);
+        if ($this->model->deleteItem($contactFunnel)) {
+            return $this->responseDeleteSuccess(['model' => $contactFunnel]);
         }
 
         return $this->responseDeleteFail();

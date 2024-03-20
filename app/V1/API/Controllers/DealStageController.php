@@ -57,49 +57,49 @@ class DealStageController extends Controller
     /**
      *  Show the form for editing the specified resource.
      *
-     * @param  DealStage  $item
+     * @param  DealStage  $dealStage
      *
      * @throws AuthorizationException
      */
-    public function show(DealStage $item)
+    public function show(DealStage $dealStage)
     {
 //        $this->authorize('view', DealStage::class);
 
-        $model = $this->model->show($item);
+        $model = $this->model->show($dealStage);
         return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  DealStage  $item
+     * @param  DealStage  $dealStage
      *
      * @return JsonResponse|\Illuminate\Http\Response
      * @throws AuthorizationException
      */
-    public function edit(DealStage $item)
+    public function edit(DealStage $dealStage)
     {
 //        $this->authorize('edit', DealStage::class);
 
-        return $this->show($item);
+        return $this->show($dealStage);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  UpdateRequest  $request
-     * @param  DealStage  $item
+     * @param  DealStage  $dealStage
      *
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function update(UpdateRequest $request, DealStage $item)
+    public function update(UpdateRequest $request, DealStage $dealStage)
     {
 //        $this->authorize('edit', DealStage::class);
 
         $data = $request->validated();
-        if ($item = $this->model->updateItem($item, $data)) {
-            return $this->responseUpdateSuccess(['model' => $item]);
+        if ($dealStage = $this->model->updateItem($dealStage, $data)) {
+            return $this->responseUpdateSuccess(['model' => $dealStage]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -113,12 +113,12 @@ class DealStageController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function destroy(Request $request, DealStage $item)
+    public function destroy(Request $request, DealStage $dealStage)
     {
 //        $this->authorize('delete', DealStage::class);
 
-        if ($this->model->deleteItem($item)) {
-            return $this->responseDeleteSuccess(['model' => $item]);
+        if ($this->model->deleteItem($dealStage)) {
+            return $this->responseDeleteSuccess(['model' => $dealStage]);
         }
 
         return $this->responseDeleteFail();

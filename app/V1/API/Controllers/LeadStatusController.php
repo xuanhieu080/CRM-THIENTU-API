@@ -5,8 +5,8 @@ namespace App\V1\API\Controllers;
 
 use App\Models\LeadStatus;
 use App\V1\API\Models\LeadStatusModel;
-use App\V1\API\Requests\LeadStatuss\CreateRequest;
-use App\V1\API\Requests\LeadStatuss\UpdateRequest;
+use App\V1\API\Requests\LeadStatus\CreateRequest;
+use App\V1\API\Requests\LeadStatus\UpdateRequest;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -57,49 +57,49 @@ class LeadStatusController extends Controller
     /**
      *  Show the form for editing the specified resource.
      *
-     * @param  LeadStatus  $item
+     * @param  LeadStatus  $leadStatus
      *
      * @throws AuthorizationException
      */
-    public function show(LeadStatus $item)
+    public function show(LeadStatus $leadStatus)
     {
 //        $this->authorize('view', LeadStatus::class);
 
-        $model = $this->model->show($item);
+        $model = $this->model->show($leadStatus);
         return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  LeadStatus  $item
+     * @param  LeadStatus  $leadStatus
      *
      * @return JsonResponse|\Illuminate\Http\Response
      * @throws AuthorizationException
      */
-    public function edit(LeadStatus $item)
+    public function edit(LeadStatus $leadStatus)
     {
 //        $this->authorize('edit', LeadStatus::class);
 
-        return $this->show($item);
+        return $this->show($leadStatus);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  UpdateRequest  $request
-     * @param  LeadStatus  $item
+     * @param  LeadStatus  $leadStatus
      *
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function update(UpdateRequest $request, LeadStatus $item)
+    public function update(UpdateRequest $request, LeadStatus $leadStatus)
     {
 //        $this->authorize('edit', LeadStatus::class);
 
         $data = $request->validated();
-        if ($item = $this->model->updateItem($item, $data)) {
-            return $this->responseUpdateSuccess(['model' => $item]);
+        if ($leadStatus = $this->model->updateItem($leadStatus, $data)) {
+            return $this->responseUpdateSuccess(['model' => $leadStatus]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -113,12 +113,12 @@ class LeadStatusController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function destroy(Request $request, LeadStatus $item)
+    public function destroy(Request $request, LeadStatus $leadStatus)
     {
 //        $this->authorize('delete', LeadStatus::class);
 
-        if ($this->model->deleteItem($item)) {
-            return $this->responseDeleteSuccess(['model' => $item]);
+        if ($this->model->deleteItem($leadStatus)) {
+            return $this->responseDeleteSuccess(['model' => $leadStatus]);
         }
 
         return $this->responseDeleteFail();
