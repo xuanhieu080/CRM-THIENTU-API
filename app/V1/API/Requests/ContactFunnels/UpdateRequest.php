@@ -20,7 +20,7 @@ class UpdateRequest extends ValidatorBase
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('contact_funnels', 'name')->ignore($this->route('customer')->id)
+                Rule::unique('contact_funnels', 'name')->ignore($this->route('contact_funnel')->id)
             ],
         ];
     }
