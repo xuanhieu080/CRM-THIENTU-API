@@ -25,26 +25,26 @@ class Customer extends Model
     ];
 
     public function companies() {
-        $this->belongsToMany(Company::class,'customer_companies','customer_id', 'company_id');
+        return $this->belongsToMany(Company::class,'customer_companies','customer_id', 'company_id');
     }
 
     public function contactSource() {
-        $this->hasOne(ContactSource::class,'id', 'contact_source_id');
+        return $this->hasOne(ContactSource::class,'id', 'contact_source_id');
     }
 
     public function contactFunnel() {
-        $this->hasOne(ContactFunnel::class,'id', 'contact_funnel_id');
+        return $this->hasOne(ContactFunnel::class,'id', 'contact_funnel_id');
     }
 
     public function leadStatus() {
-        $this->hasOne(LeadStatus::class,'id', 'lead_status_id');
+        return $this->hasOne(LeadStatus::class,'id', 'lead_status_id');
     }
 
     public function contact() {
-        $this->hasOne(User::class,'id', 'contact_id');
+        return $this->hasOne(User::class,'id', 'contact_id');
     }
 
     public function service() {
-        $this->hasOne(Service::class,'id', 'service_id');
+        return $this->hasOne(Service::class,'id', 'service_id');
     }
 }

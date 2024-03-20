@@ -114,7 +114,7 @@ class ServiceController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function destroy(Request $request, Service $item)
+    public function destroy(Service $item)
     {
         dd($item);
         try {
