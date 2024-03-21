@@ -22,6 +22,8 @@ class UpdateRequest extends ValidatorBase
                 'max:255',
                 Rule::unique('contact_sources', 'name')->ignore($this->route('contact_source')->id)
             ],
+            'description' => 'nullable|max:300',
+            'is_default'  => 'nullable|in:1,2,false,true'
         ];
     }
 }

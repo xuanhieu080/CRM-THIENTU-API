@@ -35,33 +35,33 @@ class CustomerModel extends AbstractModel
         return CustomerResource::collection($result);
     }
 
-    public function updateItem(Customer $item, array $data)
+    public function updateItem(Customer $customer, array $data)
     {
         try {
             DB::beginTransaction();
             $data = CRM::clean($data);
 
-            $item->first_name = trim(Arr::get($data, 'first_name', $item->first_name));
-            $item->last_name = trim(Arr::get($data, 'last_name', $item->last_name));
-            $item->message = Arr::get($data, 'message', $item->message);
-            $item->email = Arr::get($data, 'email', $item->email);
-            $item->position_name = Arr::get($data, 'position_name', $item->position_name);
-            $item->phone = Arr::get($data, 'phone', $item->phone);
-            $item->contact_funnel_id = Arr::get($data, 'contact_funnel_id', $item->contact_funnel_id);
-            $item->contact_source_id = Arr::get($data, 'contact_source_id', $item->contact_source_id);
-            $item->lead_status_id = Arr::get($data, 'lead_status_id', $item->lead_status_id);
-            $item->contact_id = Arr::get($data, 'contact_id', $item->contact_id);
-            $item->service_id = Arr::get($data, 'service_id', $item->service_id);
-            $item->last_updated_at = Carbon::now();
+            $customer->first_name = trim(Arr::get($data, 'first_name', $customer->first_name));
+            $customer->last_name = trim(Arr::get($data, 'last_name', $customer->last_name));
+            $customer->message = Arr::get($data, 'message', $customer->message);
+            $customer->email = Arr::get($data, 'email', $customer->email);
+            $customer->position_name = Arr::get($data, 'position_name', $customer->position_name);
+            $customer->phone = Arr::get($data, 'phone', $customer->phone);
+            $customer->contact_funnel_id = Arr::get($data, 'contact_funnel_id', $customer->contact_funnel_id);
+            $customer->contact_source_id = Arr::get($data, 'contact_source_id', $customer->contact_source_id);
+            $customer->lead_status_id = Arr::get($data, 'lead_status_id', $customer->lead_status_id);
+            $customer->contact_id = Arr::get($data, 'contact_id', $customer->contact_id);
+            $customer->service_id = Arr::get($data, 'service_id', $customer->service_id);
+            $customer->last_updated_at = Carbon::now();
 
-            $item->save();
+            $customer->save();
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();
             throw new \Exception($exception->getMessage());
         }
 
-        return new CustomerResource($item);
+        return new CustomerResource($customer);
     }
 
     public function store(array $data)
@@ -138,13 +138,13 @@ class CustomerModel extends AbstractModel
         return new CustomerResource($record);
     }
 
-    public function show(Customer $item)
+    public function show(Customer $customer)
     {
-        return new CustomerResource($item);
+        return new CustomerResource($customer);
     }
 
-    public function deleteItem(Customer $item)
+    public function deleteItem(Customer $customer)
     {
-        return $item->delete();
+        return $customer->delete();
     }
 }

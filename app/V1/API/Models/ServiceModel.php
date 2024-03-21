@@ -35,9 +35,17 @@ class ServiceModel extends AbstractModel
     {
         try {
             DB::beginTransaction();
+
             $data = CRM::clean($data);
             $item->name = Arr::get($data, 'name', $item->name);
+            $item->description = Arr::get($data, 'description', $item->description);
+            $isDefault = filter_var(Arr::get($data, 'is_default', $item->is_default), FILTER_VALIDATE_BOOLEAN);
+            if ($isDefault == $item->is_default) {
+                Service::query()->update(['is_default' => false]);
+                $item->is_default = filter_var(Arr::get($data, 'is_default', $item->is_default), FILTER_VALIDATE_BOOLEAN);
+            }
             $item->save();
+
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();

@@ -13,6 +13,8 @@ class Service extends Model
         'id',
         'name',
         'user_id',
+        'description',
+        'is_default'
     ];
 
     public function user() {

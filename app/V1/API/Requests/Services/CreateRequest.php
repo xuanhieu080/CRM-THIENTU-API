@@ -17,6 +17,7 @@ class CreateRequest extends ValidatorBase
     {
         return [
             'name'        => 'required|unique:services,name|max:255',
+            'description' => 'nullable|max:300',
         ];
     }
 }

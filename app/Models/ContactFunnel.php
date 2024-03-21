@@ -12,6 +12,8 @@ class ContactFunnel extends Model
     protected $fillable = [
         'name',
         'user_id',
+        'description',
+        'is_default'
     ];
 
     public function user() {

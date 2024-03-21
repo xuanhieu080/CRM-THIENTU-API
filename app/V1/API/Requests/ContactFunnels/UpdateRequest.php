@@ -16,12 +16,14 @@ class UpdateRequest extends ValidatorBase
     public function rules()
     {
         return [
-            'name'             => [
+            'name'        => [
                 'required',
                 'string',
                 'max:255',
                 Rule::unique('contact_funnels', 'name')->ignore($this->route('contact_funnel')->id)
             ],
+            'description' => 'nullable|max:300',
+            'is_default'  => 'nullable|in:1,2,false,true',
         ];
     }
 }
