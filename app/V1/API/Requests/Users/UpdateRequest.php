@@ -1,6 +1,6 @@
 <?php
 
-namespace App\V1\API\Requests\DealStages;
+namespace App\V1\API\Requests\Users;
 
 
 use App\V1\API\Requests\ValidatorBase;
@@ -16,15 +16,16 @@ class UpdateRequest extends ValidatorBase
     public function rules()
     {
         return [
-            'name'        => [
+            'email'      => 'nullable|email|unique:users,email|max:255',
+            'first_name' => 'nullable|string|max:255',
+            'last_name'  => 'nullable|string|max:255',
+            'username'   => [
                 'nullable',
                 'string',
+                'regex:/^[a-zA-Z0-9]+$/',
                 'max:255',
-                Rule::unique('deal_stages', 'name')->ignore($this->route('deal_stage')->id)
+                Rule::unique('users', 'username')->ignore($this->route('user')->id)
             ],
-            'description' => 'nullable|max:300',
-            'is_default'  => 'nullable|in:1,2,false,true',
-            'percent'     => 'nullable|numeric|min:0|max:100',
         ];
     }
 }

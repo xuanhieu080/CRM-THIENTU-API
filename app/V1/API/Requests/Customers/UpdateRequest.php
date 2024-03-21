@@ -16,11 +16,20 @@ class UpdateRequest extends ValidatorBase
     public function rules()
     {
         return [
-            'email'             => 'nullable|email|unique:customers,email|max:255',
+            'email'             => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('customers', 'email')->ignore($this->route('customer')->id)
+            ],
             'first_name'        => 'nullable|string|max:255',
             'last_name'         => 'nullable|string|max:255',
             'company_name'      => 'nullable|string|max:255',
-            'phone'             => 'nullable|phone',
+            'phone'             => [
+                'nullable',
+                'phone',
+                Rule::unique('customers', 'phone')->ignore($this->route('customer')->id)
+            ],
             'position_name'     => 'nullable|max:255',
             'service_id'        => 'nullable|exists:services,id',
             'contact_funnel_id' => 'nullable|exists:contact_funnels,id',

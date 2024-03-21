@@ -1,7 +1,6 @@
 <?php
 
-use App\V1\API\Controllers\CustomerController;
-use App\V1\API\Controllers\LeadStatusController;
+use App\V1\API\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('customers', CustomerController::class);
+Route::resource('users', UserController::class);
 
 

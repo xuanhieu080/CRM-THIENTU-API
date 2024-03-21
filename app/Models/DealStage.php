@@ -13,7 +13,8 @@ class DealStage extends Model
         'name',
         'user_id',
         'description',
-        'is_default'
+        'is_default',
+        'percent'
     ];
 
     public function user() {

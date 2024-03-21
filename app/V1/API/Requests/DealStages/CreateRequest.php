@@ -18,6 +18,7 @@ class CreateRequest extends ValidatorBase
         return [
             'name'        => 'required|unique:deal_stages,name|max:255',
             'description' => 'nullable|max:300',
+            'percent'     => 'nullable|numeric|min:0|max:100',
         ];
     }
 }

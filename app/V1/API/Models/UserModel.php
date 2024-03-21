@@ -36,7 +36,10 @@ class UserModel extends AbstractModel
         try {
             DB::beginTransaction();
             $data = CRM::clean($data);
-            $item->name = Arr::get($data, 'name', $item->name);
+            $item->first_name = trim(Arr::get($data, 'first_name', $item->first_name));
+            $item->last_name = trim(Arr::get($data, 'last_name', $item->last_name));
+            $item->email = Arr::get($data, 'email', $item->email);
+            $item->username = Arr::get($data, 'username', $item->username);
             $item->save();
             DB::commit();
         } catch (\Exception $exception) {
@@ -71,10 +74,4 @@ class UserModel extends AbstractModel
     {
         return $item->delete();
     }
-
-
-    //// Auth
-    ///
-    ///
-     
 }

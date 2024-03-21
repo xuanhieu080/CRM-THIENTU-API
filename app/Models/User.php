@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'verify_code',
         'code_expired_at',
+        'created_by',
     ];
 
     /**
@@ -57,5 +58,9 @@ class User extends Authenticatable
     {
         $name = "$this->first_name $this->last_name";
         return trim($name);
+    }
+
+    public function user() {
+        return $this->hasOne(User::class, 'id', 'created_by');
     }
 }

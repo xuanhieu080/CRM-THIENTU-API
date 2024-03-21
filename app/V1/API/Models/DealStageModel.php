@@ -39,6 +39,7 @@ class DealStageModel extends AbstractModel
             $data = CRM::clean($data);
             $item->name = Arr::get($data, 'name', $item->name);
             $item->description = Arr::get($data, 'description', $item->description);
+            $item->percent = (int)Arr::get($data, 'percent', $item->percent);
             $isDefault = filter_var(Arr::get($data, 'is_default', $item->is_default), FILTER_VALIDATE_BOOLEAN);
             if ($isDefault != $item->is_default) {
                 DealStage::query()->update(['is_default' => false]);
