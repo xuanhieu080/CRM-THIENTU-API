@@ -20,7 +20,7 @@ class UpdateRequest extends ValidatorBase
                 'nullable',
                 'string',
                 'max:255',
-                Rule::unique('lead_statuses', 'name')->ignore($this->route('lead_statuses')->id)
+                Rule::unique('lead_statuses', 'name')->ignore($this->route('lead_status')->id)
             ],
             'description' => 'nullable|max:300',
             'is_default'  => 'nullable|in:1,2,false,true'

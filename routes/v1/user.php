@@ -1,5 +1,6 @@
 <?php
 
+use App\V1\API\Controllers\CustomerController;
 use App\V1\API\Controllers\LeadStatusController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('lead-status', LeadStatusController::class);
+Route::resource('customers', CustomerController::class);
 
 
