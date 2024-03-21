@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Route::group(['prefix' => 'customers'], function () {
-    Route::post('customers/register', [CustomerController::class, 'register']);
     Route::resource('customers', CustomerController::class);
 //});
 

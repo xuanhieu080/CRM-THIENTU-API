@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function () {
     require __DIR__ . '/auth.php';
     Route::get('services', [\App\V1\API\Controllers\ServiceController::class, 'index']);
+    Route::post('customers/register', [\App\V1\API\Controllers\CustomerController::class, 'register']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
         require __DIR__ . '/customer.php';
