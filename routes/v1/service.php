@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Route::group(['prefix' => 'customers'], function () {
-    Route::resource('services', ServiceController::class);
+    Route::post('services', [ServiceController::class, 'store']);
+    Route::get('services/{service}', [ServiceController::class, 'show']);
+    Route::put('services/{service}', [ServiceController::class, 'update']);
+    Route::delete('services/{service}', [ServiceController::class, 'destroy']);
 //});
 
 

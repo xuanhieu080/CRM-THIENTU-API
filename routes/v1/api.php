@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['prefix' => 'v1'], function () {
     require __DIR__ . '/auth.php';
+    Route::get('services', [\App\V1\API\Controllers\ServiceController::class, 'index']);
+
     Route::group(['middleware' => 'auth:sanctum'], function () {
         require __DIR__ . '/customer.php';
         require __DIR__ . '/service.php';
