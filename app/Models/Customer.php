@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Customer extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
     protected $fillable = [
         'first_name',
         'last_name',
@@ -23,6 +24,16 @@ class Customer extends Model
         'service_id',
         'last_updated_at'
     ];
+
+    protected $appends = [
+        'name',
+    ];
+
+    public function getNameAttribute()
+    {
+        $name = "$this->first_name $this->last_name";
+        return trim($name);
+    }
 
     public function companies() {
         return $this->belongsToMany(Company::class,'customer_companies','customer_id', 'company_id');

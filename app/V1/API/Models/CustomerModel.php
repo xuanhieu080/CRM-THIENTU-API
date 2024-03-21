@@ -7,6 +7,8 @@ use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomerCompany;
 use App\Models\Deal;
+use App\Models\Service;
+use App\Notifications\CustomerRegisterNotify;
 use App\Supports\CRM;
 use App\V1\API\Resources\CustomerResource;
 use Carbon\Carbon;
@@ -106,6 +108,9 @@ class CustomerModel extends AbstractModel
 
             $record = $this->create($data);
 
+            $service = Service::query()->find($data['service_id']);
+            $record->notify(new CustomerRegisterNotify($service));
+
             $params = ['name' => $data['company_name']];
             list($localPart, $domain) = explode('@', $data['email']);
             $company = Company::query()
@@ -131,6 +136,7 @@ class CustomerModel extends AbstractModel
 
             DB::commit();
         } catch (\Exception $exception) {
+            dd($exception);
             DB::rollBack();
             throw new \Exception($exception->getMessage());
         }
