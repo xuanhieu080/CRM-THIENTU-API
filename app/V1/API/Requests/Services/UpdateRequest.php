@@ -17,7 +17,7 @@ class UpdateRequest extends ValidatorBase
     {
         return [
             'name'             => [
-                'required',
+                'nullable',
                 'string',
                 'max:255',
                 Rule::unique('services', 'name')->ignore($this->route('service')->id)

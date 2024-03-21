@@ -17,7 +17,7 @@ class UpdateRequest extends ValidatorBase
     {
         return [
             'name'             => [
-                'required',
+                'nullable',
                 'string',
                 'max:255',
                 Rule::unique('lead_statuses', 'name')->ignore($this->route('lead_statuse')->id)

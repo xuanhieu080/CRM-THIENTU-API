@@ -17,7 +17,7 @@ class UpdateRequest extends ValidatorBase
     {
         return [
             'name'        => [
-                'required',
+                'nullable',
                 'string',
                 'max:255',
                 Rule::unique('contact_funnels', 'name')->ignore($this->route('contact_funnel')->id)
