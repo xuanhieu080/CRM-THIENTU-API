@@ -24,6 +24,7 @@ class CustomerResource extends JsonResource
             'avatar'            => $this->avatar_url,
             'position_name'     => $this->position_name,
             'message'           => $this->message,
+            'last_updated_at'   => $this->last_updated_at,
             'contact_funnel_id' => $this->contact_funnel_id,
             'contact_funnel'    => new ContactFunnelResource($this->contactFunnel),
             'contact_source_id' => $this->contact_source_id,

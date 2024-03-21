@@ -17,6 +17,8 @@ class DealStageResource extends JsonResource
         $data = [
             'id'         => $this->id,
             'name'       => $this->name,
+            'description' => $this->description,
+            'is_default'  => filter_var($this->is_default, FILTER_VALIDATE_BOOLEAN),
             'user'       => new UserResource($this->user),
             'created_by' => object_get($this, 'user.name'),
             'created_at' => $this->created_at,

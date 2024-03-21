@@ -3,6 +3,7 @@
 namespace App\V1\API\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class ContactSourceResource extends JsonResource
 {
@@ -15,11 +16,13 @@ class ContactSourceResource extends JsonResource
     public function toArray($request)
     {
         $data = [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'user'       => new UserResource($this->user),
-            'created_by' => object_get($this, 'user.name'),
-            'created_at' => $this->created_at,
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'description' => $this->description,
+            'is_default'  => filter_var($this->is_default, FILTER_VALIDATE_BOOLEAN),
+            'user'        => new UserResource($this->user),
+            'created_by'  => object_get($this, 'user.name'),
+            'created_at'  => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
         ];
 
         return $data;
