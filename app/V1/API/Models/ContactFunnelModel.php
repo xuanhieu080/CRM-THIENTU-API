@@ -40,7 +40,7 @@ class ContactFunnelModel extends AbstractModel
             $item->name = Arr::get($data, 'name', $item->name);
             $item->description = Arr::get($data, 'description', $item->description);
             $isDefault = filter_var(Arr::get($data, 'is_default', $item->is_default), FILTER_VALIDATE_BOOLEAN);
-            if ($isDefault == $item->is_default) {
+            if ($isDefault != $item->is_default) {
                 ContactFunnel::query()->update(['is_default' => false]);
                 $item->is_default = filter_var(Arr::get($data, 'is_default', $item->is_default), FILTER_VALIDATE_BOOLEAN);
             }
