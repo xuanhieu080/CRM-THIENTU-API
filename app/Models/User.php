@@ -26,6 +26,7 @@ class User extends Authenticatable
         'verify_code',
         'code_expired_at',
         'created_by',
+        'full_name',
     ];
 
     /**
@@ -53,6 +54,28 @@ class User extends Authenticatable
     protected $appends = [
         'name'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        // Write Log
+        static::creating(function ($model) {
+            $model->full_name = trim($model->first_name . ' ' . $model->last_name);
+        });
+
+        static::updating(function ($model) {
+            static::creating(function ($model) {
+                $model->full_name = trim($model->first_name . ' ' . $model->last_name);
+            });
+        });
+
+        static::saving(function ($model) {
+            static::creating(function ($model) {
+                $model->full_name = trim($model->first_name . ' ' . $model->last_name);
+            });
+        });
+
+    }
 
     public function getNameAttribute()
     {

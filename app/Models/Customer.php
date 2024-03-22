@@ -12,6 +12,7 @@ class Customer extends Model
     protected $fillable = [
         'first_name',
         'last_name',
+        'full_name',
         'email',
         'phone',
         'avatar',
@@ -28,6 +29,28 @@ class Customer extends Model
     protected $appends = [
         'name',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        // Write Log
+        static::creating(function ($model) {
+            $model->full_name = trim($model->first_name . ' ' . $model->last_name);
+        });
+
+        static::updating(function ($model) {
+            static::creating(function ($model) {
+                $model->full_name = trim($model->first_name . ' ' . $model->last_name);
+            });
+        });
+
+        static::saving(function ($model) {
+            static::creating(function ($model) {
+                $model->full_name = trim($model->first_name . ' ' . $model->last_name);
+            });
+        });
+
+    }
 
     public function getNameAttribute()
     {
