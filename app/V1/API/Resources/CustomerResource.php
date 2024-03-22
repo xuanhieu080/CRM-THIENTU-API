@@ -34,7 +34,7 @@ class CustomerResource extends JsonResource
             'lead_status_id'    => $this->lead_status_id,
             'lead_status'       => new LeadStatusResource($this->leadStatus),
             'contact_id'        => $this->contact_id,
-            'contact'           => new UserResource($this->contactZ),
+            'contact'           => new UserResource($this->contact),
             'service_id'        => $this->service_id,
             'service'           => new ServiceResource($this->service),
         ];
