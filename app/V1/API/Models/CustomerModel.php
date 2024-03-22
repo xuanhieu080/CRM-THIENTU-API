@@ -157,7 +157,7 @@ class CustomerModel extends AbstractModel
     public function search($input = [], $with = [], $limit = null)
     {
         $createStartDate = Arr::get($input, 'create_start_date');
-        $createEndDate = Arr::get($input, 'create_date');
+        $createEndDate = Arr::get($input, 'create_end_date');
         $lastStartDate = Arr::get($input, 'last_start_date');
         $lastEndDate = Arr::get($input, 'last_end_date');
         $search = Arr::get($input, 'search');
