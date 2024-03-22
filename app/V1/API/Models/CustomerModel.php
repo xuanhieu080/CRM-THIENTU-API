@@ -156,8 +156,10 @@ class CustomerModel extends AbstractModel
 
     public function search($input = [], $with = [], $limit = null)
     {
-        $createDate = Arr::get($input, 'create_date');
-        $lastDate = Arr::get($input, 'last_date');
+        $createStartDate = Arr::get($input, 'create_start_date');
+        $createEndDate = Arr::get($input, 'create_date');
+        $lastStartDate = Arr::get($input, 'last_start_date');
+        $lastEndDate = Arr::get($input, 'last_end_date');
         $search = Arr::get($input, 'search');
         $query = $this->make($with);
         $orWhere = Arr::get($input, 'orWhere', []);
@@ -249,11 +251,11 @@ class CustomerModel extends AbstractModel
                 }
             }
         });
-        if (!empty($createDate) && !empty($createDate['start_date']) && !empty($createDate['end_date'])) {
-            $query->whereBetween('created_at', [Carbon::parse($createDate['end_date']), Carbon::parse($createDate['end_date'])]);
+        if (!empty($createStartDate) && !empty($createEndDate)) {
+            $query->whereBetween('created_at', [Carbon::parse($createStartDate), Carbon::parse($createEndDate)]);
         }
-        if (!empty($lastDate) && !empty($lastDate['start_date']) && !empty($lastDate['end_date'])) {
-            $query->whereBetween('last_updated_at', [Carbon::parse($lastDate['end_date']), Carbon::parse($lastDate['end_date'])]);
+        if (!empty($lastStartDate) && !empty($lastEndDate)) {
+            $query->whereBetween('last_updated_at', [Carbon::parse($lastStartDate), Carbon::parse($lastEndDate)]);
         }
 
         if (!empty($search)) {
