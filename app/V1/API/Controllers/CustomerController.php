@@ -49,7 +49,7 @@ class CustomerController extends Controller
         $input = $request->validated();
         $record = $this->model->store($input);
         if (!is_null($record)) {
-            return $this->responseStoreSuccess(['model' => $record]);
+            return $this->responseStoreSuccess(['data' => $record]);
         } else {
             return $this->responseStoreFail();
         }
@@ -70,7 +70,7 @@ class CustomerController extends Controller
         $input = $request->validated();
         $record = $this->model->register($input);
         if (!is_null($record)) {
-            return response()->json(['message' => 'Đăng ký thành công', 'status' => 200, 'model' => $record]);
+            return response()->json(['message' => 'Đăng ký thành công', 'status' => 200, 'data' => $record]);
         } else {
             return response()->json(['message' => 'Đăng ký không thành công']);
         }
@@ -88,7 +88,7 @@ class CustomerController extends Controller
 //        $this->authorize('view', Customer::class);
 
         $model = $this->model->show($customer);
-        return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
+        return $this->responseDataSuccess(['data' => $model, 'properties' => $this->properties()]);
     }
 
     /**
@@ -121,7 +121,7 @@ class CustomerController extends Controller
 
         $data = $request->validated();
         if ($item = $this->model->updateItem($customer, $data)) {
-            return $this->responseUpdateSuccess(['model' => $item]);
+            return $this->responseUpdateSuccess(['data' => $item]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -140,7 +140,7 @@ class CustomerController extends Controller
 //        $this->authorize('delete', Customer::class);
 
         if ($this->model->deleteItem($customer)) {
-            return $this->responseDeleteSuccess(['model' => $customer]);
+            return $this->responseDeleteSuccess(['data' => $customer]);
         }
 
         return $this->responseDeleteFail();

@@ -48,7 +48,7 @@ class LeadStatusController extends Controller
         $input = $request->validated();
         $record = $this->model->store($input);
         if (!is_null($record)) {
-            return $this->responseStoreSuccess(['model' => $record]);
+            return $this->responseStoreSuccess(['data' => $record]);
         } else {
             return $this->responseStoreFail();
         }
@@ -66,7 +66,7 @@ class LeadStatusController extends Controller
 //        $this->authorize('view', LeadStatus::class);
 
         $model = $this->model->show($leadStatus);
-        return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
+        return $this->responseDataSuccess(['data' => $model, 'properties' => $this->properties()]);
     }
 
     /**
@@ -99,7 +99,7 @@ class LeadStatusController extends Controller
 
         $data = $request->validated();
         if ($leadStatus = $this->model->updateItem($leadStatus, $data)) {
-            return $this->responseUpdateSuccess(['model' => $leadStatus]);
+            return $this->responseUpdateSuccess(['data' => $leadStatus]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -118,7 +118,7 @@ class LeadStatusController extends Controller
 //        $this->authorize('delete', LeadStatus::class);
 
         if ($this->model->deleteItem($leadStatus)) {
-            return $this->responseDeleteSuccess(['model' => $leadStatus]);
+            return $this->responseDeleteSuccess(['data' => $leadStatus]);
         }
 
         return $this->responseDeleteFail();

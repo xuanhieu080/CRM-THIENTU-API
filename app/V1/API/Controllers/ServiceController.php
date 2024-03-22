@@ -49,7 +49,7 @@ class ServiceController extends Controller
         $input = $request->validated();
         $record = $this->model->store($input);
         if (!is_null($record)) {
-            return $this->responseStoreSuccess(['model' => $record]);
+            return $this->responseStoreSuccess(['data' => $record]);
         } else {
             return $this->responseStoreFail();
         }
@@ -67,7 +67,7 @@ class ServiceController extends Controller
 //        $this->authorize('view', Service::class);
 
         $model = $this->model->show($service);
-        return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
+        return $this->responseDataSuccess(['data' => $model, 'properties' => $this->properties()]);
     }
 
     /**
@@ -100,7 +100,7 @@ class ServiceController extends Controller
 
         $data = $request->validated();
         if ($service = $this->model->updateItem($service, $data)) {
-            return $this->responseUpdateSuccess(['model' => $service]);
+            return $this->responseUpdateSuccess(['data' => $service]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -117,7 +117,7 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         if ($this->model->deleteItem($service)) {
-            return $this->responseDeleteSuccess(['model' => $service]);
+            return $this->responseDeleteSuccess(['data' => $service]);
         }
 
 

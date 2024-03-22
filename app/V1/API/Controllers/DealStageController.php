@@ -48,7 +48,7 @@ class DealStageController extends Controller
         $input = $request->validated();
         $record = $this->model->store($input);
         if (!is_null($record)) {
-            return $this->responseStoreSuccess(['model' => $record]);
+            return $this->responseStoreSuccess(['data' => $record]);
         } else {
             return $this->responseStoreFail();
         }
@@ -66,7 +66,7 @@ class DealStageController extends Controller
 //        $this->authorize('view', DealStage::class);
 
         $model = $this->model->show($dealStage);
-        return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
+        return $this->responseDataSuccess(['data' => $model, 'properties' => $this->properties()]);
     }
 
     /**
@@ -99,7 +99,7 @@ class DealStageController extends Controller
 
         $data = $request->validated();
         if ($dealStage = $this->model->updateItem($dealStage, $data)) {
-            return $this->responseUpdateSuccess(['model' => $dealStage]);
+            return $this->responseUpdateSuccess(['data' => $dealStage]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -118,7 +118,7 @@ class DealStageController extends Controller
 //        $this->authorize('delete', DealStage::class);
 
         if ($this->model->deleteItem($dealStage)) {
-            return $this->responseDeleteSuccess(['model' => $dealStage]);
+            return $this->responseDeleteSuccess(['data' => $dealStage]);
         }
 
         return $this->responseDeleteFail();

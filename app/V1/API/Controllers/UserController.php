@@ -49,7 +49,7 @@ class UserController extends Controller
         $input = $request->validated();
         $record = $this->model->store($input);
         if (!is_null($record)) {
-            return $this->responseStoreSuccess(['model' => $record]);
+            return $this->responseStoreSuccess(['data' => $record]);
         } else {
             return $this->responseStoreFail();
         }
@@ -68,7 +68,7 @@ class UserController extends Controller
 //        $this->authorize('view', User::class);
 
         $model = $this->model->show($user);
-        return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
+        return $this->responseDataSuccess(['data' => $model, 'properties' => $this->properties()]);
     }
 
     /**
@@ -101,7 +101,7 @@ class UserController extends Controller
 
         $data = $request->validated();
         if ($item = $this->model->updateItem($user, $data)) {
-            return $this->responseUpdateSuccess(['model' => $item]);
+            return $this->responseUpdateSuccess(['data' => $item]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -120,7 +120,7 @@ class UserController extends Controller
 //        $this->authorize('delete', User::class);
 
         if ($this->model->deleteItem($user)) {
-            return $this->responseDeleteSuccess(['model' => $user]);
+            return $this->responseDeleteSuccess(['data' => $user]);
         }
 
         return $this->responseDeleteFail();

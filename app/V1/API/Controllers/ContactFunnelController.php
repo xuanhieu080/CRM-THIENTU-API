@@ -48,7 +48,7 @@ class ContactFunnelController extends Controller
         $input = $request->validated();
         $record = $this->model->store($input);
         if (!is_null($record)) {
-            return $this->responseStoreSuccess(['model' => $record]);
+            return $this->responseStoreSuccess(['data' => $record]);
         } else {
             return $this->responseStoreFail();
         }
@@ -66,7 +66,7 @@ class ContactFunnelController extends Controller
 //        $this->authorize('view', ContactFunnel::class);
 
         $model = $this->model->show($contactFunnel);
-        return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
+        return $this->responseDataSuccess(['data' => $model, 'properties' => $this->properties()]);
     }
 
     /**
@@ -99,7 +99,7 @@ class ContactFunnelController extends Controller
 
         $data = $request->validated();
         if ($contactFunnel = $this->model->updateItem($contactFunnel, $data)) {
-            return $this->responseUpdateSuccess(['model' => $contactFunnel]);
+            return $this->responseUpdateSuccess(['data' => $contactFunnel]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -118,7 +118,7 @@ class ContactFunnelController extends Controller
 //        $this->authorize('delete', ContactFunnel::class);
 
         if ($this->model->deleteItem($contactFunnel)) {
-            return $this->responseDeleteSuccess(['model' => $contactFunnel]);
+            return $this->responseDeleteSuccess(['data' => $contactFunnel]);
         }
 
         return $this->responseDeleteFail();

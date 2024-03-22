@@ -48,7 +48,7 @@ class ContactSourceController extends Controller
         $input = $request->validated();
         $record = $this->model->store($input);
         if (!is_null($record)) {
-            return $this->responseStoreSuccess(['model' => $record]);
+            return $this->responseStoreSuccess(['data' => $record]);
         } else {
             return $this->responseStoreFail();
         }
@@ -66,7 +66,7 @@ class ContactSourceController extends Controller
 //        $this->authorize('view', ContactSource::class);
 
         $model = $this->model->show($contactSource);
-        return $this->responseDataSuccess(['model' => $model, 'properties' => $this->properties()]);
+        return $this->responseDataSuccess(['data' => $model, 'properties' => $this->properties()]);
     }
 
     /**
@@ -99,7 +99,7 @@ class ContactSourceController extends Controller
 
         $data = $request->validated();
         if ($contactSource = $this->model->updateItem($contactSource, $data)) {
-            return $this->responseUpdateSuccess(['model' => $contactSource]);
+            return $this->responseUpdateSuccess(['data' => $contactSource]);
         } else {
             return $this->responseUpdateFail();
         }
@@ -118,7 +118,7 @@ class ContactSourceController extends Controller
 //        $this->authorize('delete', ContactSource::class);
 
         if ($this->model->deleteItem($contactSource)) {
-            return $this->responseDeleteSuccess(['model' => $contactSource]);
+            return $this->responseDeleteSuccess(['data' => $contactSource]);
         }
 
         return $this->responseDeleteFail();
