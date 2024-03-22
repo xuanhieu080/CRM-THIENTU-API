@@ -4,6 +4,7 @@ namespace App\V1\API\Resources;
 
 use App\Models\ContactSource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class CustomerResource extends JsonResource
 {
@@ -25,8 +26,8 @@ class CustomerResource extends JsonResource
             'avatar'            => $this->avatar_url,
             'position_name'     => $this->position_name,
             'message'           => $this->message,
-            'last_updated_at'   => $this->last_updated_at,
-            'created_at'        => $this->created_at,
+            'last_updated_at'   => Carbon::parse($this->last_updated_at)->format('Y-m-d H:i:s'),
+            'created_at'        => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
             'contact_funnel_id' => $this->contact_funnel_id,
             'contact_funnel'    => new ContactFunnelResource($this->contactFunnel),
             'contact_source_id' => $this->contact_source_id,
