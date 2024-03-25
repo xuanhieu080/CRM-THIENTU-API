@@ -25,5 +25,6 @@ Route::group(['prefix' => 'v1'], function () {
         require __DIR__ . '/deal_stage.php';
         require __DIR__ . '/lead_status.php';
         require __DIR__ . '/user.php';
+        require __DIR__ . '/industry.php';
     });
 });

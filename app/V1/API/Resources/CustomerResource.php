@@ -38,6 +38,7 @@ class CustomerResource extends JsonResource
             'contact'           => new UserResource($this->contact),
             'service_id'        => $this->service_id,
             'service'           => new ServiceResource($this->service),
+            'companies'         => CompanyResource::collection($this->companies),
         ];
 
         return $data;
