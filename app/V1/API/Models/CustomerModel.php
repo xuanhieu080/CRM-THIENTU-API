@@ -78,12 +78,12 @@ class CustomerModel extends AbstractModel
         try {
             DB::beginTransaction();
             $data = CRM::clean($data);
-            $contactSource = ContactSource::query()
-                ->where('is_default', 1)
-                ->first();
-            if (!empty($contactSource)) {
-                $data['contact_source_id'] = $contactSource->id;
-            }
+//            $contactSource = ContactSource::query()
+//                ->where('is_default', 1)
+//                ->first();
+//            if (!empty($contactSource)) {
+//                $data['contact_source_id'] = $contactSource->id;
+//            }
             $firstName = trim(Arr::get($data, 'first_name'));
             $lastName = trim(Arr::get($data, 'last_name'));
 

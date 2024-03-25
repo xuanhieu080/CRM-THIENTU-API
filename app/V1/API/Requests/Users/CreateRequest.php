@@ -3,9 +3,9 @@
 namespace App\V1\API\Requests\Users;
 
 
-use App\V1\API\Requests\ValidatorCustom;
+use App\V1\API\Requests\ValidatorBase;
 
-class CreateRequest extends ValidatorCustom
+class CreateRequest extends ValidatorBase
 {
     /**
      * Get the validation rules that apply to the request.
