@@ -133,13 +133,6 @@ class CustomerModel extends AbstractModel
                 $company = $companyModel->store($params);
             }
 
-//            Deal::create([
-//                'model_type'      => Customer::class,
-//                'model_id'        => $record->id,
-//                'service_id'      => $data['service_id'],
-//                'last_updated_at' => Carbon::now(),
-//            ]);
-
             CustomerCompany::create([
                 'customer_id' => $record->id,
                 'company_id'  => $company->id,

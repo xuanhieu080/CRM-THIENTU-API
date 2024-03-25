@@ -7,6 +7,7 @@ use App\Models\Industry;
 use App\Supports\CRM;
 use App\V1\API\Resources\IndustryResource;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class IndustryModel extends AbstractModel
@@ -54,6 +55,7 @@ class IndustryModel extends AbstractModel
         try {
             DB::beginTransaction();
             $data = CRM::clean($data);
+            $data['user_id'] = Auth::id();
             $record = $this->create($data);
             DB::commit();
         } catch (\Exception $exception) {
