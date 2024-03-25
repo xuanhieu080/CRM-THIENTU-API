@@ -37,6 +37,7 @@ class UpdateRequest extends ValidatorBase
             'lead_status_id'    => 'nullable|exists:lead_statuses,id',
             'contact_id'        => 'nullable|exists:users,id',
             'message'           => 'nullable',
+            'avatar'            => 'nullable|image|max:3024|mimes:jpg,jpeg,png,bmp,gif,svg,webp,mp4,ogx,oga,ogv,ogg,webm',
         ];
     }
 }

@@ -25,7 +25,10 @@ class LeadStatusModel extends AbstractModel
     {
         $limit = Arr::get($input, 'limit', 999);
 
-        $input['sort'] = ['id' => 'desc'];
+        $input['sort'] = ['name' => 'asc'];
+        if (!empty($input['search'])) {
+            $input['name'] = ['like' => $input['search']];
+        }
         $result = $this->search($input, [], $limit);
 
         return LeadStatusResource::collection($result);

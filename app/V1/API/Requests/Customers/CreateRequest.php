@@ -22,6 +22,7 @@ class CreateRequest extends ValidatorCustom
             'phone'        => 'required|phone',
             'service_id'   => 'required|exists:services,id',
             'message'      => 'nullable',
+            'avatar'       => 'nullable|image|max:3024|mimes:jpg,jpeg,png,bmp,gif,svg,webp,mp4,ogx,oga,ogv,ogg,webm',
         ];
     }
 }

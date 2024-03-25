@@ -9,7 +9,11 @@ use Illuminate\Notifications\Notifiable;
 class Customer extends Model
 {
     use HasFactory, Notifiable;
+
+    const path = 'customers';
+
     protected $fillable = [
+        'id',
         'first_name',
         'last_name',
         'full_name',

@@ -11,6 +11,7 @@ use App\Models\Deal;
 use App\Models\Service;
 use App\Notifications\CustomerRegisterNotify;
 use App\Supports\CRM;
+use App\Supports\HasImage;
 use App\V1\API\Resources\CustomerResource;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
@@ -44,8 +45,11 @@ class CustomerModel extends AbstractModel
             DB::beginTransaction();
             $data = CRM::clean($data);
 
-            $customer->first_name = trim(Arr::get($data, 'first_name', $customer->first_name));
-            $customer->last_name = trim(Arr::get($data, 'last_name', $customer->last_name));
+            $firstName = trim(Arr::get($data, 'first_name', $customer->first_name));
+            $lastName = trim(Arr::get($data, 'last_name', $customer->last_name));
+            $customer->first_name = $firstName;
+            $customer->last_name = $lastName;
+            $customer->full_name = "$firstName $lastName";
             $customer->message = Arr::get($data, 'message', $customer->message);
             $customer->email = Arr::get($data, 'email', $customer->email);
             $customer->position_name = Arr::get($data, 'position_name', $customer->position_name);
@@ -56,7 +60,9 @@ class CustomerModel extends AbstractModel
             $customer->contact_id = Arr::get($data, 'contact_id', $customer->contact_id);
             $customer->service_id = Arr::get($data, 'service_id', $customer->service_id);
             $customer->last_updated_at = Carbon::now();
-
+            if (!empty($data['avatar'])) {
+                $customer->avatar = HasImage::updateImage($data['avatar'], $customer->avatar, Customer::path);
+            }
             $customer->save();
             DB::commit();
         } catch (\Exception $exception) {
@@ -78,7 +84,15 @@ class CustomerModel extends AbstractModel
             if (!empty($contactSource)) {
                 $data['contact_source_id'] = $contactSource->id;
             }
+            $firstName = trim(Arr::get($data, 'first_name'));
+            $lastName = trim(Arr::get($data, 'last_name'));
 
+            $data['first_name'] = $firstName;
+            $data['last_name'] = $lastName;
+            $data['full_name'] = "$firstName $lastName";
+            if (!empty($data['file'])) {
+                $data['avatar'] = HasImage::addImage($data['avatar'], Customer::path);
+            }
             $record = $this->create($data);
 
             $params = ['name' => $data['company_name']];
@@ -118,6 +132,12 @@ class CustomerModel extends AbstractModel
             if (!empty($contactSource)) {
                 $data['contact_source_id'] = $contactSource->id;
             }
+            $firstName = trim(Arr::get($data, 'first_name'));
+            $lastName = trim(Arr::get($data, 'last_name'));
+
+            $data['first_name'] = $firstName;
+            $data['last_name'] = $lastName;
+            $data['full_name'] = "$firstName $lastName";
             $record = $this->create($data);
 
             $service = Service::query()->find($data['service_id']);
@@ -155,6 +175,7 @@ class CustomerModel extends AbstractModel
 
     public function deleteItem(Customer $customer)
     {
+        HasImage::deleteImage($customer->avatar);
         return $customer->delete();
     }
 
