@@ -55,7 +55,7 @@ class CustomerRegisterNotify extends Notification
 _Thời gian: $time
 ";
         return TelegramMessage::create()
-            ->to(env('TELEGRAM_CUSTOMER_REGISTER', '-1002069737102'))
+            ->to(env('TELEGRAM_CUSTOMER_REGISTER', '-4143268254'))
             ->content($content);
     }
 }
