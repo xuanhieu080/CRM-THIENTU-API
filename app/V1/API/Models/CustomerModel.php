@@ -79,6 +79,8 @@ class CustomerModel extends AbstractModel
                 $data['contact_source_id'] = $contactSource->id;
             }
 
+            dd($contactSource);
+
             $record = $this->create($data);
 
             $params = ['name' => $data['company_name']];
