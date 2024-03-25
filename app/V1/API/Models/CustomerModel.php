@@ -4,6 +4,7 @@ namespace App\V1\API\Models;
 
 
 use App\Models\Company;
+use App\Models\ContactSource;
 use App\Models\Customer;
 use App\Models\CustomerCompany;
 use App\Models\Deal;
@@ -71,6 +72,12 @@ class CustomerModel extends AbstractModel
         try {
             DB::beginTransaction();
             $data = CRM::clean($data);
+            $contactSource = ContactSource::query()
+                ->where('is_default', 1)
+                ->first();
+            if (!empty($contactSource)) {
+                $data['contact_source_id'] = $contactSource->id;
+            }
 
             $record = $this->create($data);
 
