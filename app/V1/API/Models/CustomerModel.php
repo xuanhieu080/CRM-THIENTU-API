@@ -95,22 +95,22 @@ class CustomerModel extends AbstractModel
             }
             $record = $this->create($data);
 
-            $params = ['name' => $data['company_name']];
-            list($localPart, $domain) = explode('@', $data['email']);
-            $company = Company::query()
-                ->where('domain', 'like', "%$domain")
-                ->first();
-            if (empty($company)) {
-                $companyModel = new CompanyModel();
-                $company = $companyModel->store($params);
+            if (!empty($data['company_name'])) {
+                $params = ['name' => $data['company_name']];
+                list($localPart, $domain) = explode('@', $data['email']);
+                $company = Company::query()
+                    ->where('domain', 'like', "%$domain")
+                    ->first();
+                if (empty($company)) {
+                    $companyModel = new CompanyModel();
+                    $company = $companyModel->store($params);
+                }
+
+                CustomerCompany::create([
+                    'customer_id' => $record->id,
+                    'company_id'  => $company->id,
+                ]);
             }
-
-            CustomerCompany::create([
-                'customer_id' => $record->id,
-                'company_id'  => $company->id,
-            ]);
-
-
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();
