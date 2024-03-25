@@ -79,8 +79,6 @@ class CustomerModel extends AbstractModel
                 $data['contact_source_id'] = $contactSource->id;
             }
 
-            dd($contactSource);
-
             $record = $this->create($data);
 
             $params = ['name' => $data['company_name']];
@@ -114,7 +112,12 @@ class CustomerModel extends AbstractModel
         try {
             DB::beginTransaction();
             $data = CRM::clean($data);
-
+            $contactSource = ContactSource::query()
+                ->where('is_default', 1)
+                ->first();
+            if (!empty($contactSource)) {
+                $data['contact_source_id'] = $contactSource->id;
+            }
             $record = $this->create($data);
 
             $service = Service::query()->find($data['service_id']);
@@ -145,7 +148,6 @@ class CustomerModel extends AbstractModel
 
             DB::commit();
         } catch (\Exception $exception) {
-            dd($exception);
             DB::rollBack();
             throw new \Exception($exception->getMessage());
         }
