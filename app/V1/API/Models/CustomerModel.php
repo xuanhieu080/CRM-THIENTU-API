@@ -78,6 +78,7 @@ class CustomerModel extends AbstractModel
             if (!empty($contactSource)) {
                 $data['contact_source_id'] = $contactSource->id;
             }
+            dd($data);
 
             $record = $this->create($data);
 
