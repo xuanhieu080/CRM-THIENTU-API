@@ -6,6 +6,7 @@ namespace App\V1\API\Controllers;
 use App\Models\Customer;
 use App\V1\API\Models\CustomerModel;
 use App\V1\API\Requests\Customers\CreateRequest;
+use App\V1\API\Requests\Customers\DeleteRequest;
 use App\V1\API\Requests\Customers\UpdateRequest;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
@@ -141,6 +142,21 @@ class CustomerController extends Controller
 
         if ($this->model->deleteItem($customer)) {
             return $this->responseDeleteSuccess(['data' => $customer]);
+        }
+
+        return $this->responseDeleteFail();
+
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function deleteIds(DeleteRequest $request)
+    {
+//        $this->authorize('delete', Customer::class);
+        $data = $request->validated();
+        if ($this->model->deleteIds($data['ids'])) {
+            return $this->responseDeleteSuccess();
         }
 
         return $this->responseDeleteFail();

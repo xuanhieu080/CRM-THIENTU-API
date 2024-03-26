@@ -179,6 +179,26 @@ class CustomerModel extends AbstractModel
         return $customer->delete();
     }
 
+    public function deleteIds($ids = [])
+    {
+        try {
+           DB::beginTransaction();
+
+            $data = Customer::query()
+                ->whereIn('id', $ids)
+                ->get();
+
+            foreach ($data as $item) {
+                $this->deleteItem($item);
+            }
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            throw new \Exception($exception->getMessage());
+        }
+        return true;
+    }
+
     public function search($input = [], $with = [], $limit = null)
     {
         $createStartDate = Arr::get($input, 'create_start_date');

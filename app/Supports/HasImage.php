@@ -40,14 +40,26 @@ class HasImage
         return null;
     }
 
+    public static final function deleteImages($paths)
+    {
+        foreach ($paths as $path) {
+            if (!empty($path)) {
+                $file = Storage::disk(self::disk());
+                if ($file->exists($path)) {
+                    $file->delete($path);
+                }
+            }
+        }
+        return null;
+    }
+
     public static final function store(UploadedFile $file, $subdir, $disk = null)
     {
         $name = $file->hashName();
         $dir = "{$subdir}";
         if (empty($disk)) {
             $disk = self::disk();
-        }
-        ;
+        };
         return $file->storeAs($dir, $name, ['disk' => $disk]);
     }
 
