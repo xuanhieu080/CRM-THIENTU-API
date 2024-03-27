@@ -56,10 +56,7 @@ class CustomerModel extends AbstractModel
         $limit = Arr::get($input, 'limit', 999);
 
         $input['sort'] = ['id' => 'desc'];
-        $input['orWhere']['contact_id'] = [
-            'NULL' => null,
-            '<>' => Auth::id()
-            ];
+        $input['contact_id'] = null;
         $result = $this->search($input, [], $limit);
 
         return CustomerResource::collection($result);
