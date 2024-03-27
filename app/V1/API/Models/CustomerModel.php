@@ -15,6 +15,7 @@ use App\Supports\HasImage;
 use App\V1\API\Resources\CustomerResource;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CustomerModel extends AbstractModel
@@ -34,6 +35,28 @@ class CustomerModel extends AbstractModel
         $limit = Arr::get($input, 'limit', 999);
 
         $input['sort'] = ['id' => 'desc'];
+        $result = $this->search($input, [], $limit);
+
+        return CustomerResource::collection($result);
+    }
+
+    public function myContact($input)
+    {
+        $limit = Arr::get($input, 'limit', 999);
+
+        $input['sort'] = ['id' => 'desc'];
+        $input['contact_id'] = Auth::id();
+        $result = $this->search($input, [], $limit);
+
+        return CustomerResource::collection($result);
+    }
+
+    public function unassignedContact($input)
+    {
+        $limit = Arr::get($input, 'limit', 999);
+
+        $input['sort'] = ['id' => 'desc'];
+        $input['contact_id'] = ['<>' => Auth::id()];
         $result = $this->search($input, [], $limit);
 
         return CustomerResource::collection($result);
@@ -93,6 +116,7 @@ class CustomerModel extends AbstractModel
             if (!empty($data['file'])) {
                 $data['avatar'] = HasImage::addImage($data['avatar'], Customer::path);
             }
+
             $record = $this->create($data);
 
             if (!empty($data['company_name'])) {

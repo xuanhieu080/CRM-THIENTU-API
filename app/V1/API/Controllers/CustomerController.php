@@ -36,9 +36,35 @@ class CustomerController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     * @return JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @throws AuthorizationException
+     */
+    public function myContact(Request $request)
+    {
+//        $this->authorize('list', Customer::class);
+        $input = $request->all();
+
+        return $this->model->myContact($input);
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @throws AuthorizationException
+     */
+    public function unassignedContact(Request $request)
+    {
+//        $this->authorize('list', Customer::class);
+        $input = $request->all();
+
+        return $this->model->unassignedContact($input);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
-     * @param  CreateRequest  $request
+     * @param CreateRequest $request
      *
      * @return JsonResponse
      * @throws AuthorizationException
@@ -59,7 +85,7 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CreateRequest  $request
+     * @param CreateRequest $request
      *
      * @return JsonResponse
      * @throws AuthorizationException
@@ -80,7 +106,7 @@ class CustomerController extends Controller
     /**
      *  Show the form for editing the specified resource.
      *
-     * @param  Customer  $customer
+     * @param Customer $customer
      *
      * @throws AuthorizationException
      */
@@ -95,7 +121,7 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Customer  $customer
+     * @param Customer $customer
      *
      * @return JsonResponse|\Illuminate\Http\Response
      * @throws AuthorizationException
@@ -110,8 +136,8 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateRequest  $request
-     * @param  Customer  $customer
+     * @param UpdateRequest $request
+     * @param Customer $customer
      *
      * @return JsonResponse
      * @throws AuthorizationException
@@ -131,7 +157,7 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return JsonResponse
      * @throws AuthorizationException

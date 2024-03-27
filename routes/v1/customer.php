@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 //Route::group(['prefix' => 'customers'], function () {
     Route::delete('customers', [CustomerController::class, 'deleteIds']);
+    Route::get('customers/my-contacts', [CustomerController::class, 'myContact']);
+    Route::get('customers/unassigned-contacts', [CustomerController::class, 'unassignedContact']);
     Route::resource('customers', CustomerController::class);
 //});
 
