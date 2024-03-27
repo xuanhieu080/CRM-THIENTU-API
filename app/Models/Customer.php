@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Supports\HasImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -32,7 +33,13 @@ class Customer extends Model
 
     protected $appends = [
         'name',
+        'avatar_url',
     ];
+
+    public function getAvatarUrlAttribute()
+    {
+        return HasImage::getImage($this->avatar);
+    }
 
     public static function boot()
     {

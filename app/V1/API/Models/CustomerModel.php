@@ -113,7 +113,7 @@ class CustomerModel extends AbstractModel
             $data['first_name'] = $firstName;
             $data['last_name'] = $lastName;
             $data['full_name'] = "$firstName $lastName";
-            if (!empty($data['file'])) {
+            if (!empty($data['avatar'])) {
                 $data['avatar'] = HasImage::addImage($data['avatar'], Customer::path);
             }
 

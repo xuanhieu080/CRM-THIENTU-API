@@ -8,6 +8,7 @@ use App\Supports\CRM;
 use App\V1\API\Resources\UserResource;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserModel extends AbstractModel
 {
@@ -40,6 +41,10 @@ class UserModel extends AbstractModel
             $item->last_name = trim(Arr::get($data, 'last_name', $item->last_name));
             $item->email = Arr::get($data, 'email', $item->email);
             $item->username = Arr::get($data, 'username', $item->username);
+            $password = Arr::get($data, 'password');
+            if(!empty($password)) {
+                $item->password = Hash::make($password);
+            }
             $item->save();
             DB::commit();
         } catch (\Exception $exception) {
@@ -55,6 +60,7 @@ class UserModel extends AbstractModel
         try {
             DB::beginTransaction();
             $data = CRM::clean($data);
+            $data['password'] = Hash::make($data['password']);
             $record = $this->create($data);
             DB::commit();
         } catch (\Exception $exception) {

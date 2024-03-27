@@ -16,7 +16,15 @@ class CreateRequest extends ValidatorBase
     public function rules()
     {
         return [
-            'name'        => 'required|unique:services,name|max:255',
+            'name'          => 'required|string|max:255',
+            'domain'        => 'nullable|unique:companies,domain|max:255|active_url',
+            'contact_id'    => 'nullable|exists:users,id',
+            'industry_id'   => 'nullable|exists:industries,id',
+            'address'       => 'nullable|string',
+            'facebook_link' => 'nullable|url',
+            'linkedin_link' => 'nullable|url',
+            'description'   => 'nullable',
+            'image'         => 'nullable|image|max:3024|mimes:jpg,jpeg,png,bmp,gif,svg,webp,mp4,ogx,oga,ogv,ogg,webm',
         ];
     }
 }

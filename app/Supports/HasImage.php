@@ -4,10 +4,24 @@ namespace App\Supports;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class HasImage
 {
+    public static final function getImage($path)
+    {
+       if (empty($path)) {
+           return null;
+       }
+        $path = storage_path($path);
+
+        if (File::exists($path)) {
+            return File::get($path);
+        }
+
+        return null;
+    }
     public static final function addImage(UploadedFile $file, $subdir = 'uploads')
     {
         return self::store($file, $subdir);

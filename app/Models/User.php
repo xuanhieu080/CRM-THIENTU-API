@@ -27,6 +27,7 @@ class User extends Authenticatable
         'code_expired_at',
         'created_by',
         'full_name',
+        'username',
     ];
 
     /**
