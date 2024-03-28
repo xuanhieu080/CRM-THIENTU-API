@@ -62,7 +62,7 @@ class CompanyModel extends AbstractModel
             $item->contact_id = Arr::get($data, 'contact_id', $item->contact_id);
             $item->lead_status_id = Arr::get($data, 'lead_status_id', $item->lead_status_id);
             if (!empty($data['image'])) {
-                $item->image = HasImage::updateImage($item->image, $data['image'], Company::path);
+                $item->image = HasImage::updateImage( $data['image'],$item->image, Company::path);
             }
             $item->last_updated_at = Carbon::now();
             $item->save();
