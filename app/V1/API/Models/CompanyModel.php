@@ -59,6 +59,7 @@ class CompanyModel extends AbstractModel
             $item->linkedin_link = Arr::get($data, 'linkedin_link', $item->linkedin_link);
             $item->industry_id = Arr::get($data, 'industry_id', $item->industry_id);
             $item->contact_id = Arr::get($data, 'contact_id', $item->contact_id);
+            $item->lead_status_id = Arr::get($data, 'lead_status_id', $item->lead_status_id);
             if (!empty($data['image'])) {
                 $item->image = HasImage::updateImage($item->image,$data['image'], Company::path);
             }
