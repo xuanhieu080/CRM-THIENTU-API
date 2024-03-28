@@ -15,6 +15,7 @@ class HasImage
            return null;
        }
         $path = storage_path($path);
+       dd($path);
 
         if (File::exists($path)) {
             return File::get($path);
