@@ -26,6 +26,7 @@ class Company extends Model
         'contact_id',
         'lead_status_id',
         'last_updated_at',
+        'image',
     ];
 
     protected $appends = [
