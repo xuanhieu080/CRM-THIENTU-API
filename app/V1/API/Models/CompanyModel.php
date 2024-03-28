@@ -8,6 +8,7 @@ use App\Supports\CRM;
 use App\Supports\HasImage;
 use App\V1\API\Resources\CompanyResource;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -50,9 +51,18 @@ class CompanyModel extends AbstractModel
             DB::beginTransaction();
             $data = CRM::clean($data);
             $item->name = Arr::get($data, 'name', $item->name);
+            $item->phone = Arr::get($data, 'phone', $item->phone);
+            $item->email = Arr::get($data, 'email', $item->email);
+            $item->address = Arr::get($data, 'address', $item->address);
+            $item->description = Arr::get($data, 'description', $item->description);
+            $item->facebook_link = Arr::get($data, 'facebook_link', $item->facebook_link);
+            $item->linkedin_link = Arr::get($data, 'linkedin_link', $item->linkedin_link);
+            $item->industry_id = Arr::get($data, 'industry_id', $item->industry_id);
+            $item->contact_id = Arr::get($data, 'contact_id', $item->contact_id);
             if (!empty($data['image'])) {
                 $item->image = HasImage::updateImage($item->image,$data['image'], Company::path);
             }
+            $item->last_updated_at = Carbon::now();
             $item->save();
             DB::commit();
         } catch (\Exception $exception) {
