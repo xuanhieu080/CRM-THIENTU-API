@@ -33,12 +33,12 @@ class CompanyController extends Controller
 
         return $this->model->index($input);
     }
-    public function myContact(Request $request)
+    public function myCompany(Request $request)
     {
 //        $this->authorize('list', Company::class);
         $input = $request->all();
 
-        return $this->model->myContact($input);
+        return $this->model->myCompany($input);
     }
 
     /**

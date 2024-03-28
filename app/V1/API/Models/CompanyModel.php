@@ -34,7 +34,7 @@ class CompanyModel extends AbstractModel
         return CompanyResource::collection($result);
     }
 
-    public function myContact($input)
+    public function myCompany($input)
     {
         $limit = Arr::get($input, 'limit', 999);
 
@@ -61,7 +61,7 @@ class CompanyModel extends AbstractModel
             $item->contact_id = Arr::get($data, 'contact_id', $item->contact_id);
             $item->lead_status_id = Arr::get($data, 'lead_status_id', $item->lead_status_id);
             if (!empty($data['image'])) {
-                $item->image = HasImage::updateImage($item->image,$data['image'], Company::path);
+                $item->image = HasImage::updateImage($item->image, $data['image'], Company::path);
             }
             $item->last_updated_at = Carbon::now();
             $item->save();
@@ -100,5 +100,128 @@ class CompanyModel extends AbstractModel
     public function deleteItem(Company $item)
     {
         return $item->delete();
+    }
+
+    public function search($input = [], $with = [], $limit = null)
+    {
+        $createStartDate = Arr::get($input, 'create_start_date');
+        $createEndDate = Arr::get($input, 'create_end_date');
+        $lastStartDate = Arr::get($input, 'last_start_date');
+        $lastEndDate = Arr::get($input, 'last_end_date');
+        $search = Arr::get($input, 'search');
+        $query = $this->make($with);
+        $orWhere = Arr::get($input, 'orWhere', []);
+        $this->sortBuilder($query, $input);
+        $full_columns = $this->model->getFillable();
+
+        $input = array_intersect_key($input, array_flip($full_columns));
+        $orWhere = array_intersect_key($orWhere, array_flip($full_columns));
+
+        foreach ($input as $field => $value) {
+            if ($value === "") {
+                continue;
+            }
+            if (is_array($value)) {
+                $query->where(function ($q) use ($field, $value) {
+                    foreach ($value as $action => $data) {
+                        $action = strtoupper($action);
+                        if ($data === "") {
+                            continue;
+                        }
+                        switch ($action) {
+                            case "LIKE":
+                                $q->orWhere(DB::raw($field), "like", "%$data%");
+                                break;
+                            case "IN":
+                                $q->orWhereIn(DB::raw($field), $data);
+                                break;
+                            case "NOT IN":
+                                $q->orWhereNotIn(DB::raw($field), $data);
+                                break;
+                            case "NULL":
+                                $q->orWhereNull(DB::raw($field));
+                                break;
+                            case "NOT NULL":
+                                $q->orWhereNotNull(DB::raw($field));
+                                break;
+                            case "BETWEEN":
+                                $q->orWhereBetween(DB::raw($field), $value);
+                                break;
+                            default:
+                                $q->orWhere(DB::raw($field), $action, $data);
+                                break;
+                        }
+                    }
+                });
+            } else {
+                $query->where(DB::raw($field), $value);
+            }
+        }
+        $query->where(function ($qr) use ($orWhere) {
+            foreach ($orWhere as $field => $value) {
+                if ($value === "") {
+                    continue;
+                }
+                if (is_array($value)) {
+                    $qr->orWhere(function ($q) use ($field, $value) {
+                        foreach ($value as $action => $data) {
+                            $action = strtoupper($action);
+                            if ($data === "") {
+                                continue;
+                            }
+                            switch ($action) {
+                                case "LIKE":
+                                    $q->orWhere(DB::raw($field), "like", "%$data%");
+                                    break;
+                                case "IN":
+                                    $q->orWhereIn(DB::raw($field), $data);
+                                    break;
+                                case "NOT IN":
+                                    $q->orWhereNotIn(DB::raw($field), $data);
+                                    break;
+                                case "NULL":
+                                    $q->orWhereNull(DB::raw($field));
+                                    break;
+                                case "NOT NULL":
+                                    $q->orWhereNotNull(DB::raw($field));
+                                    break;
+                                case "BETWEEN":
+                                    $q->orWhereBetween(DB::raw($field), $value);
+                                    break;
+                                default:
+                                    $q->orWhere(DB::raw($field), $action, $data);
+                                    break;
+                            }
+                        }
+                    });
+                } else {
+                    $qr->orwhere(DB::raw($field), $value);
+                }
+            }
+        });
+        if (!empty($createStartDate) && !empty($createEndDate)) {
+            $query->whereBetween('created_at', [\Carbon\Carbon::parse($createStartDate), Carbon::parse($createEndDate)]);
+        }
+        if (!empty($lastStartDate) && !empty($lastEndDate)) {
+            $query->whereBetween('last_updated_at', [Carbon::parse($lastStartDate), Carbon::parse($lastEndDate)]);
+        }
+
+        if (!empty($search)) {
+            $query->where(function ($qr) use ($search) {
+                $qr->where("name", "like", "%$search%")
+                    ->orWhere("email", "like", "%$search%")
+                    ->orWhere("phone", "like", "%$search%");
+            });
+        }
+
+        if ($limit) {
+            if ($limit === 1) {
+                return $query->first();
+            } else {
+                return $query->paginate($limit);
+            }
+        } else {
+            return $query->get();
+        }
     }
 }

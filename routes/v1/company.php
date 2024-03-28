@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Route::group(['prefix' => 'customers'], function () {
-Route::get('companies/my-contacts', [CompanyController::class, 'myContact']);
+Route::get('companies/my-companies', [CompanyController::class, 'myCompany']);
 
 Route::resource('companies', CompanyController::class);
 //});
