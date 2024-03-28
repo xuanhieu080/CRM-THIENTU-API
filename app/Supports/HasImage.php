@@ -17,7 +17,7 @@ class HasImage
        }
 
         if (Storage::exists($path)) {
-            return env('APP_URL') ."/storage/$path";
+            return Storage::url($path);
         }
 
         return env('APP_URL') ."/storage/$path";
