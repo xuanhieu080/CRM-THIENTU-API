@@ -15,7 +15,7 @@ class HasImage
        if (empty($path)) {
            return null;
        }
-        $path = storage_path($path);
+        $path = "/storage/$path";
 
        Log::info(['path' => $path]);
         if (File::exists($path)) {
