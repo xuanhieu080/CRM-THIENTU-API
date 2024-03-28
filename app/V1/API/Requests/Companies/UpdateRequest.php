@@ -16,7 +16,7 @@ class UpdateRequest extends ValidatorBase
     public function rules()
     {
         return [
-            'name'           => 'required|string|max:255',
+            'name'           => 'nullable|string|max:255',
             'domain'         => [
                 'nullable',
                 'max:255',
