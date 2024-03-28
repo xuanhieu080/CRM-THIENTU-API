@@ -15,15 +15,13 @@ class HasImage
        if (empty($path)) {
            return null;
        }
-        $path = "/storage/$path";
 
-       Log::info(['path' => $path]);
-        if (File::exists($path)) {
+        if (Storage::exists($path)) {
             Log::info(['path1' => $path]);
-            return File::get($path);
+            return Storage::get($path);
         }
 
-        return null;
+        return env('APP_URL') ."/storage/$path";
     }
     public static final function addImage(UploadedFile $file, $subdir = 'uploads')
     {
