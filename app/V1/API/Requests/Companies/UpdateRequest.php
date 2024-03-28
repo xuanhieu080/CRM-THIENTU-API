@@ -27,6 +27,7 @@ class UpdateRequest extends ValidatorBase
             'industry_id'    => 'nullable|exists:industries,id',
             'lead_status_id' => 'nullable|exists:lead_statuses,id',
             'address'        => 'nullable|string',
+            'phone'          => 'nullable|phone',
             'facebook_link'  => 'nullable|url',
             'linkedin_link'  => 'nullable|url',
             'description'    => 'nullable',

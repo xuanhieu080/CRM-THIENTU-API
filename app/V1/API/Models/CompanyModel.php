@@ -52,6 +52,7 @@ class CompanyModel extends AbstractModel
             $data = CRM::clean($data);
             $item->name = Arr::get($data, 'name', $item->name);
             $item->phone = Arr::get($data, 'phone', $item->phone);
+            $item->domain = Arr::get($data, 'domain', $item->domain);
             $item->email = Arr::get($data, 'email', $item->email);
             $item->address = Arr::get($data, 'address', $item->address);
             $item->description = Arr::get($data, 'description', $item->description);

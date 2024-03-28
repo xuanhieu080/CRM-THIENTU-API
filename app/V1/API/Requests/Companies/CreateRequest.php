@@ -21,6 +21,7 @@ class CreateRequest extends ValidatorBase
             'contact_id'    => 'nullable|exists:users,id',
             'industry_id'   => 'nullable|exists:industries,id',
             'address'       => 'nullable|string',
+            'phone'         => 'nullable|phone',
             'facebook_link' => 'nullable|url',
             'linkedin_link' => 'nullable|url',
             'description'   => 'nullable',
