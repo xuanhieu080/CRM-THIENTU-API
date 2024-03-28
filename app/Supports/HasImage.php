@@ -5,6 +5,7 @@ namespace App\Supports;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class HasImage
@@ -15,9 +16,10 @@ class HasImage
            return null;
        }
         $path = storage_path($path);
-       dd($path);
 
+       Log::info(['path' => $path]);
         if (File::exists($path)) {
+            Log::info(['path1' => $path]);
             return File::get($path);
         }
 
