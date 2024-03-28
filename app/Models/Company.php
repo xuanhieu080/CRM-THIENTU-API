@@ -44,4 +44,8 @@ class Company extends Model
     public function contact() {
         return $this->hasOne(User::class, 'id', 'contact_id');
     }
+
+    public function leadStatus() {
+        return $this->hasOne(LeadStatus::class, 'id', 'lead_status_id');
+    }
 }
